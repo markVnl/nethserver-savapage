@@ -7,7 +7,8 @@ do
     if [ "$Test" ];then
         break
     fi
-    if [ "$count" == 12 ]; then
+    # debug for arm, wait a looong time
+    if [ "$count" == 48 ]; then
        echo "we cannot wait more for savapage"
        exit 1
     fi
@@ -16,4 +17,4 @@ do
 done
 
 # sync AD/LDAP users
-/opt/savapage/server/bin/linux-x64/savapage-cmd --sync-users-and-groups
+/opt/savapage/server/bin/linux-armv7l/savapage-cmd --sync-users-and-groups

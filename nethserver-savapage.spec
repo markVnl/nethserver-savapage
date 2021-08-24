@@ -7,7 +7,6 @@ Version: 0.0.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
-Source1: https://www.savapage.org/download/%{savapage_directory}/savapage-setup-%{savapage_version}-linux-x64.bin
 AutoReq: no
 
 Requires: nethserver-avahi, nethserver-postgresql, nethserver-cups
@@ -35,9 +34,6 @@ exit 0
 perl createlinks
 
 %install
-rm -rf %{buildroot}
-mkdir -p root/opt/savapage
-cp %{SOURCE1} root/opt/savapage/savapage-setup.bin
 rm -rf %{buildroot}
 (cd root; find . -depth -print | cpio -dump %{buildroot})
 

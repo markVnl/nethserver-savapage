@@ -8,12 +8,6 @@ if [ $? -eq 1 ]; then
    createdb=true
 fi
 
-# check if savapage has to be installed
-installsava=true
-if [ -f /opt/savapage/server/bin/linux-x64/savapage-db ]; then
-   installsava=false
-fi
-
 # create db, role and set privilges
 
 su - postgres -c "psql -c \"CREATE USER savapage WITH PASSWORD '$(cat /var/lib/nethserver/secrets/savapage)';\""
@@ -23,18 +17,6 @@ su - postgres -c "psql -c \"grant all privileges on database savapage to savapag
 
 # savapage install when not installed already
 
-if [ "$installsava" = true ]; then
-
-   # set user and rights and install savapage non-interactively
-
-   chown -R savapage:savapage /opt/savapage
-
-   su savapage -c "cd /opt/savapage; chmod u+x savapage-setup.bin; ./savapage-setup.bin -n"
-
-   # run as root for installing services
-
-   /opt/savapage/MUST-RUN-AS-ROOT
-fi
 
 # expand-template for writing password to server.properties which is needed by db-init
 expand-template /opt/savapage/server/server.properties
@@ -42,5 +24,5 @@ expand-template /opt/savapage/server/server.properties
 # initialize db, only done when created
 
 if [ "$createdb" = true ]; then
-   su savapage -c "/opt/savapage/server/bin/linux-x64/savapage-db --db-init"
+   su savapage -c "/opt/savapage/server/bin/linux-armv7l/savapage-db --db-init"
 fi

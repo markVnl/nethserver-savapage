@@ -1,1 +1,1 @@
-pathmunge /opt/savapage/server/bin/linux-x64/
+pathmunge /opt/savapage/server/bin/linux-armv7l/
